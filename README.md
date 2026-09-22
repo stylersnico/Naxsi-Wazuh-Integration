@@ -1,6 +1,6 @@
 # Naxsi Wazuh Integration
 
-The goal of this project is to ship [Naxsi](https://github.com/nbs-system/naxsi) WAF events from my [Custom Naxsi Configs](https://github.com/stylersnico/Custom-Naxsi-Configs) reverse-proxy into Wazuh as real, decoded, alertable events instead of raw text sitting in a log file.
+The goal of this project is to ship [Naxsi](https://github.com/wargio/naxsi) WAF events from my [Custom Naxsi Configs](https://github.com/stylersnico/Custom-Naxsi-Configs) reverse-proxy into Wazuh as real, decoded, alertable events instead of raw text sitting in a log file.
 
 * Custom decoder for Naxsi's `NAXSI_FMT:` log line format
 * Rules for blocked/dropped requests, split by attack class (SQLi, XSS, traversal, RFI)
