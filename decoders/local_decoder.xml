@@ -1,0 +1,5 @@
+<decoder name="naxsi">
+  <prematch>NAXSI_FMT:</prematch>
+  <regex offset="after_prematch">^ ip=(\S+)&amp;server=(\S+)&amp;uri=(\S+)&amp;config=(\S+)&amp;rid=(\S+)&amp;(.+)$</regex>
+  <order>srcip,dstserver,url,naxsi_action,naxsi_rid,naxsi_data</order>
+</decoder>

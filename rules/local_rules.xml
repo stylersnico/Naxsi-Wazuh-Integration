@@ -1,0 +1,58 @@
+<group name="naxsi,web,attack,">
+
+<rule id="100200" level="3">
+  <decoded_as>naxsi</decoded_as>
+  <description>Naxsi WAF event on $(dstserver)</description>
+  <group>naxsi,</group>
+</rule>
+
+<rule id="100201" level="8">
+  <if_sid>100200</if_sid>
+  <field name="naxsi_action">block</field>
+  <description>Naxsi WAF blocked a request on $(dstserver): $(url)</description>
+  <group>naxsi,attack,</group>
+</rule>
+
+<rule id="100202" level="8">
+  <if_sid>100200</if_sid>
+  <field name="naxsi_action">drop</field>
+  <description>Naxsi WAF dropped a request on $(dstserver): $(url)</description>
+  <group>naxsi,attack,</group>
+</rule>
+
+<rule id="100203" level="10">
+  <if_sid>100201</if_sid>
+  <field name="naxsi_data">\$SQL</field>
+  <description>Naxsi WAF blocked a possible SQL injection attempt on $(dstserver): $(url)</description>
+  <group>naxsi,attack,sql_injection,pci_dss_6.5.1,</group>
+</rule>
+
+<rule id="100204" level="10">
+  <if_sid>100201</if_sid>
+  <field name="naxsi_data">\$XSS</field>
+  <description>Naxsi WAF blocked a possible XSS attempt on $(dstserver): $(url)</description>
+  <group>naxsi,attack,xss,pci_dss_6.5.7,</group>
+</rule>
+
+<rule id="100205" level="10">
+  <if_sid>100201</if_sid>
+  <field name="naxsi_data">\$TRAVERSAL</field>
+  <description>Naxsi WAF blocked a possible directory traversal attempt on $(dstserver): $(url)</description>
+  <group>naxsi,attack,</group>
+</rule>
+
+<rule id="100206" level="10">
+  <if_sid>100201</if_sid>
+  <field name="naxsi_data">\$RFI</field>
+  <description>Naxsi WAF blocked a possible remote file inclusion attempt on $(dstserver): $(url)</description>
+  <group>naxsi,attack,</group>
+</rule>
+
+<rule id="100207" level="12" frequency="8" timeframe="120">
+  <if_matched_sid>100201</if_matched_sid>
+  <same_source_ip />
+  <description>Multiple Naxsi WAF blocks from the same source IP within 2 minutes - possible scan on $(dstserver)</description>
+  <group>naxsi,attack,recon,</group>
+</rule>
+
+</group>
